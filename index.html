@@ -331,11 +331,11 @@
       <div style="margin-bottom:1.5rem">
         <label style="display:block;margin-bottom:0.6rem">Especialidad</label>
         <div class="especialidades-select" id="espSelect">
-          <div class="esp-option" onclick="selectEsp(this)">RPG — Primera consulta</div>
-          <div class="esp-option" onclick="selectEsp(this)">RPG — Sesión común</div>
-          <div class="esp-option" onclick="selectEsp(this)">Acupuntura</div>
-          <div class="esp-option" onclick="selectEsp(this)">Rehabilitación</div>
-        </div>
+        <button type="button" class="esp-option">RPG — Primera consulta</button>
+        <button type="button" class="esp-option">RPG — Sesión común</button>
+        <button type="button" class="esp-option">Acupuntura</button>
+        <button type="button" class="esp-option">Rehabilitación</button>
+       </div>
       </div>
       <div class="form-grid">
         <div class="form-group"><label>Nombre y apellido *</label><input type="text" id="nombre" placeholder="Ej: María González"></div>
@@ -370,11 +370,13 @@
 
   let especialidadSeleccionada = '';
 
-  function selectEsp(el) {
+  document.querySelectorAll('.esp-option').forEach(btn => {
+  btn.addEventListener('click', () => {
     document.querySelectorAll('.esp-option').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    especialidadSeleccionada = el.textContent;
-  }
+    btn.classList.add('selected');
+    especialidadSeleccionada = btn.textContent.trim();
+  });
+});
 
   async function enviarTurno() {
     const nombre = document.getElementById('nombre').value.trim();
