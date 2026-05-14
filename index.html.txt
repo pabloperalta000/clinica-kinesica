@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Kinésica - Lic. Daniel Peralta</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-dark: #085041;
+    --teal-mid: #0F6E56;
+    --teal-light: #1D9E75;
+    --teal-pale: #E1F5EE;
+    --teal-soft: #9FE1CB;
+    --green-accent: #639922;
+    --cream: #faf9f6;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+    --text-light: #777;
+    --white: #fff;
+    --border: rgba(0,0,0,0.08);
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+  h1,h2,h3 { font-family: 'Playfair Display', serif; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,249,246,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--teal-mid);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-icon svg { width: 20px; height: 20px; fill: white; }
+  .nav-brand { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: var(--teal-dark); line-height: 1.1; }
+  .nav-brand span { display: block; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; color: var(--text-light); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { text-decoration: none; color: var(--text-mid); font-size: 14px; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal-mid); }
+  .nav-cta {
+    background: #EF9F27; color: #412402; border: none;
+    padding: 10px 22px; border-radius: 40px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #BA7517; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 64px 2rem 0;
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-mid) 50%, var(--teal-light) 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: rgba(255,255,255,0.04); pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -150px; left: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: rgba(255,255,255,0.03); pointer-events: none;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 4rem; position: relative; z-index: 1; }
+  .hero-text { flex: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: white; padding: 6px 14px; border-radius: 40px; font-size: 12px;
+    margin-bottom: 1.5rem; letter-spacing: 0.05em;
+  }
+  .hero-badge::before { content: '●'; color: #9FE1CB; font-size: 8px; }
+  h1.hero-title { font-size: clamp(2.2rem, 5vw, 3.5rem); color: white; line-height: 1.1; margin-bottom: 0.5rem; }
+  .hero-subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 0.3rem; font-weight: 300; }
+  .hero-specialty { font-size: 0.9rem; color: var(--teal-soft); margin-bottom: 2rem; font-weight: 500; letter-spacing: 0.03em; }
+  .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 2.5rem; max-width: 480px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: white; color: var(--teal-dark); border: none;
+    padding: 14px 28px; border-radius: 40px; font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: var(--teal-pale); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 14px 28px; border-radius: 40px; font-size: 15px; font-weight: 400;
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+    text-decoration: none; display: inline-flex; align-items: center;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+  .hero-card {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 2rem; width: 300px; flex-shrink: 0;
+  }
+  .avatar-ring {
+    width: 100px; height: 100px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 2.2rem; color: white;
+    margin: 0 auto 1rem;
+  }
+  .hero-card-name { text-align: center; color: white; font-size: 1rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .hero-card-role { text-align: center; color: rgba(255,255,255,0.7); font-size: 0.82rem; margin-bottom: 1.2rem; }
+  .hero-card-specs { display: flex; flex-direction: column; gap: 0.6rem; }
+  .hero-card-spec {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 12px;
+    font-size: 0.82rem; color: rgba(255,255,255,0.9);
+  }
+  .spec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-soft); flex-shrink: 0; }
+
+  /* SECTION BASE */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-size: 12px; color: var(--teal-mid); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.7rem; font-weight: 500; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--text-dark); margin-bottom: 1rem; line-height: 1.2; }
+  .section-desc { font-size: 1rem; color: var(--text-light); line-height: 1.7; max-width: 560px; }
+
+  /* SERVICIOS */
+  .servicios { background: white; }
+  .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .servicio-card {
+    background: var(--cream); border-radius: var(--radius);
+    padding: 1.5rem; border: 1px solid var(--border);
+    transition: all 0.25s;
+  }
+  .servicio-card:hover { transform: translateY(-4px); border-color: var(--teal-soft); }
+  .servicio-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--teal-pale); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .servicio-icon svg { width: 24px; height: 24px; stroke: var(--teal-mid); fill: none; stroke-width: 1.8; }
+  .servicio-name { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 0.4rem; }
+  .servicio-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.5; }
+  .servicio-badge {
+    display: inline-block; margin-top: 0.8rem;
+    background: var(--teal-pale); color: var(--teal-dark);
+    font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500;
+  }
+
+  /* SOBRE DANIEL */
+  .sobre { background: var(--cream); }
+  .sobre-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .sobre-visual {
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal-light));
+    border-radius: 24px; padding: 3rem 2rem; text-align: center;
+  }
+  .sobre-avatar {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 3rem; color: white;
+    margin: 0 auto 1.5rem;
+  }
+  .sobre-visual h3 { color: white; font-size: 1.3rem; margin-bottom: 0.3rem; }
+  .sobre-visual p { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .sobre-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .sobre-stat { background: rgba(255,255,255,0.12); border-radius: 12px; padding: 1rem; }
+  .sobre-stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; }
+  .sobre-stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.65); }
+  .sobre-text h2 { margin-bottom: 1rem; }
+  .sobre-text p { color: var(--text-mid); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+  .formaciones { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.7rem; }
+  .formaciones li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.9rem; color: var(--text-mid);
+  }
+  .form-bullet {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--teal-pale);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    font-size: 10px; color: var(--teal-dark); font-weight: 600;
+  }
+
+  /* TESTIMONIOS */
+  .testimonios { background: white; }
+  .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .test-card {
+    background: var(--cream); border-radius: var(--radius); padding: 1.5rem;
+    border: 1px solid var(--border); border-left: 3px solid var(--teal-soft);
+  }
+  .test-stars { color: var(--teal-light); font-size: 1rem; margin-bottom: 0.8rem; }
+  .test-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+  .test-author { font-size: 0.82rem; color: var(--text-light); font-weight: 500; }
+  .test-placeholder {
+    background: var(--teal-pale); border-radius: var(--radius); padding: 2rem;
+    text-align: center; border: 2px dashed var(--teal-soft); margin-top: 1.5rem;
+  }
+  .test-placeholder p { color: var(--teal-dark); font-size: 0.9rem; line-height: 1.6; }
+
+  /* UBICACIÓN */
+  .ubicacion { background: var(--cream); }
+  .ubicacion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; align-items: start; }
+  .info-card { background: white; border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1rem; }
+  .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 0.7rem 0; border-bottom: 1px solid var(--border); }
+  .info-row:last-child { border-bottom: none; }
+  .info-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .info-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .info-value { font-size: 0.9rem; color: var(--text-dark); font-weight: 500; }
+  .map-placeholder {
+    background: var(--teal-pale); border-radius: var(--radius); height: 280px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 1px solid var(--teal-soft);
+  }
+  .map-placeholder p { color: var(--teal-dark); font-size: 0.9rem; margin-top: 0.5rem; }
+
+  /* TURNOS */
+  .turnos { background: var(--teal-dark); }
+  .turnos .section-title { color: white; }
+  .turnos .section-desc { color: rgba(255,255,255,0.7); }
+  .turnos .section-tag { color: var(--teal-soft); }
+  .turno-form-card {
+    background: white; border-radius: 24px; padding: 2.5rem;
+    max-width: 700px; margin: 3rem auto 0;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 13px; color: var(--text-mid); font-weight: 500; }
+  input, select, textarea {
+    padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text-dark);
+    background: var(--cream); outline: none; transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--teal-light); background: white; }
+  textarea { resize: vertical; min-height: 80px; }
+  .especialidades-select { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .esp-option {
+    padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
+    font-size: 13px; color: var(--text-mid); cursor: pointer;
+    transition: all 0.2s; background: var(--cream); text-align: center;
+  }
+  .esp-option:hover, .esp-option.selected {
+    border-color: var(--teal-light); background: var(--teal-pale); color: var(--teal-dark); font-weight: 500;
+  }
+  .form-submit {
+    width: 100%; margin-top: 1.5rem; padding: 14px;
+    background: var(--teal-mid); color: white; border: none; border-radius: 40px;
+    font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--teal-dark); }
+  .form-note { font-size: 12px; color: var(--text-light); margin-top: 0.8rem; text-align: center; line-height: 1.5; }
+
+  /* FOOTER */
+  footer {
+    background: #0a0a0a; color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem; text-align: center; font-size: 13px;
+  }
+  footer strong { color: white; }
+  .footer-ig { display: inline-flex; align-items: center; gap: 6px; color: var(--teal-soft); text-decoration: none; margin-top: 0.5rem; }
+
+  /* SCROLL smooth */
+  html { scroll-behavior: smooth; }
+
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; }
+    .hero-card { width: 100%; }
+    .sobre-inner, .ubicacion-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/></svg>
+    </div>
+    <div class="nav-brand">Clínica Kinésica<span>Lic. Daniel Peralta</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#sobre">Sobre Daniel</a>
+    <a href="#testimonios">Testimonios</a>
+    <a href="#ubicacion">Ubicación</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('turnos').scrollIntoView({behavior:'smooth'})">Sacar turno</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">Mendoza · Kinesiología Integral</div>
+      <h1 class="hero-title">Clínica<br>Kinésica</h1>
+      <p class="hero-subtitle">Lic. Daniel Peralta</p>
+      <p class="hero-specialty">Especialista en RPG · Kinesiólogo matriculado</p>
+      <p class="hero-desc">Tratamientos personalizados que combinan ciencia del movimiento, terapia manual avanzada y un enfoque integral para recuperar tu calidad de vida.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('turnos').scrollIntoView({behavior:'smooth'})">Reservar turno →</button>
+        <a href="https://www.instagram.com/clinicakinesicamza/" class="btn-secondary" target="_blank">Ver Instagram</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="avatar-ring">DP</div>
+      <div class="hero-card-name">Lic. Daniel Peralta</div>
+      <div class="hero-card-role">Kinesiólogo · Especialista en RPG</div>
+      <div class="hero-card-specs">
+        <div class="hero-card-spec"><div class="spec-dot"></div>RPG (Reeducación Postural Global)</div>
+        <div class="hero-card-spec"><div class="spec-dot"></div>Terapia Manual y Miofascial</div>
+        <div class="hero-card-spec"><div class="spec-dot"></div>Acupuntura clínica</div>
+        <div class="hero-card-spec"><div class="spec-dot"></div>Escoliosis y columna</div>
+        <div class="hero-card-spec"><div class="spec-dot"></div>Fisioterapia · Rehabilitación</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="servicios" id="servicios">
+  <div class="section-inner">
+    <div class="section-tag">Lo que ofrecemos</div>
+    <h2 class="section-title">Especialidades y tratamientos</h2>
+    <p class="section-desc">Cada tratamiento es diseñado de manera personalizada según las necesidades únicas de cada paciente.</p>
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 100 8 4 4 0 000-8zm0 10c-4 0-8 2-8 4v2h16v-2c0-2-4-4-8-4z"/></svg>
+        </div>
+        <div class="servicio-name">RPG · Primera consulta</div>
+        <div class="servicio-desc">Evaluación global de postura y movimiento. Diagnóstico inicial completo para diseñar tu plan de tratamiento.</div>
+        <span class="servicio-badge">Especialidad principal</span>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="servicio-name">RPG · Sesión de seguimiento</div>
+        <div class="servicio-desc">Continuación del plan de reeducación postural global. Sesiones progresivas para corregir patrones de movimiento.</div>
+        <span class="servicio-badge">RPG</span>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+        </div>
+        <div class="servicio-name">Acupuntura</div>
+        <div class="servicio-desc">Técnica milenaria integrada al tratamiento kinésico. Dolor crónico, tensión muscular y bienestar general.</div>
+        <span class="servicio-badge">Especialidad</span>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <div class="servicio-name">Rehabilitación</div>
+        <div class="servicio-desc">Recuperación post-quirúrgica, lesiones deportivas, patologías musculoesqueléticas y neurológicas.</div>
+        <span class="servicio-badge">Integral</span>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
+        </div>
+        <div class="servicio-name">Terapia Manual y Miofascial</div>
+        <div class="servicio-desc">Liberación de restricciones del tejido conectivo. Técnicas manuales avanzadas para alivio inmediato.</div>
+        <span class="servicio-badge">Manual</span>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div class="servicio-name">Escoliosis y columna</div>
+        <div class="servicio-desc">Abordaje especializado en patología articular y escoliosis. Evaluación y tratamiento de alteraciones de la columna.</div>
+        <span class="servicio-badge">Especialidad</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sobre" id="sobre">
+  <div class="section-inner">
+    <div class="sobre-inner">
+      <div class="sobre-visual">
+        <div class="sobre-avatar">DP</div>
+        <h3>Lic. Daniel Peralta</h3>
+        <p>Kinesiólogo · Mat. Colegio Kinesiólogos Mendoza</p>
+        <div class="sobre-stats">
+          <div class="sobre-stat">
+            <div class="sobre-stat-num">4</div>
+            <div class="sobre-stat-label">Especialidades</div>
+          </div>
+          <div class="sobre-stat">
+            <div class="sobre-stat-num">+10</div>
+            <div class="sobre-stat-label">Años formándose</div>
+          </div>
+          <div class="sobre-stat">
+            <div class="sobre-stat-num">RPG</div>
+            <div class="sobre-stat-label">Especialización</div>
+          </div>
+          <div class="sobre-stat">
+            <div class="sobre-stat-num">360°</div>
+            <div class="sobre-stat-label">Enfoque integral</div>
+          </div>
+        </div>
+      </div>
+      <div class="sobre-text">
+        <div class="section-tag">Sobre el profesional</div>
+        <h2 class="section-title">Formación integral al servicio de tu salud</h2>
+        <p>Daniel comenzó su formación con el método RPG Souchard, completando luego la especialización superior en patología articular y escoliosis. Se formó en liberación miofascial y somatoemocional junto al fisioterapeuta español Javier Ruiz.</p>
+        <p>Su visión integradora combina kinesiología, osteopatía y técnicas miofasciales para evaluar y tratar a la persona en su globalidad. Lo que más lo motiva es acompañar al paciente en los momentos complejos de la vida.</p>
+        <ul class="formaciones">
+          <li><div class="form-bullet">1</div>Terapia Manual, Miofascial y RPG Souchard</li>
+          <li><div class="form-bullet">2</div>Escoliosis y alteraciones de la columna vertebral</li>
+          <li><div class="form-bullet">3</div>Acupuntura clínica integrativa</li>
+          <li><div class="form-bullet">4</div>Análisis del movimiento (método Jemns · Johan Elphinston)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonios" id="testimonios">
+  <div class="section-inner">
+    <div class="section-tag">Experiencias</div>
+    <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
+    <p class="section-desc">Cada historia es única. Compartí tu experiencia y ayudá a otros a encontrar el camino hacia el bienestar.</p>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Llegué con dolor crónico de espalda que no me dejaba dormir. Después de las sesiones de RPG con Daniel recuperé mi calidad de vida completamente."</p>
+        <div class="test-author">— Paciente con escoliosis · Mendoza</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"El enfoque integral de Daniel es increíble. Combina varias técnicas y realmente se nota la diferencia desde la primera sesión."</p>
+        <div class="test-author">— Paciente de rehabilitación · Mendoza</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Gracias a la acupuntura y terapia manual pude volver a hacer deporte. Daniel explica todo con mucha claridad y dedicación."</p>
+        <div class="test-author">— Paciente deportivo · Mendoza</div>
+      </div>
+    </div>
+    <div class="test-placeholder">
+      <p>📸 <strong>Galería de antes y después</strong><br>Próximamente: casos reales de pacientes con escoliosis y otras patologías, mostrando la evolución y mejora en su calidad de vida.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ubicacion" id="ubicacion">
+  <div class="section-inner">
+    <div class="section-tag">Encontranos</div>
+    <h2 class="section-title">Dónde atendemos</h2>
+    <div class="ubicacion-grid">
+      <div>
+        <div class="info-card">
+          <div class="info-row">
+            <div class="info-icon">📍</div>
+            <div><div class="info-label">Dirección</div><div class="info-value">Infanta Mercedes de San Martín 78, M5500 Mendoza</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">📱</div>
+            <div><div class="info-label">WhatsApp</div><div class="info-value">+54 9 261 686-3971</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">📸</div>
+            <div><div class="info-label">Instagram</div><div class="info-value">@clinicakinesicamza</div></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div><div class="info-label">Lunes a Jueves</div><div class="info-value">9:00 — 13:00 hs · 14:00 — 18:00 hs</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div><div class="info-label">Viernes y Sábados</div><div class="info-value">9:00 — 13:00 hs · 14:00 — 14:00 hs</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">⏱</div>
+            <div><div class="info-label">Duración de cada turno</div><div class="info-value">60 minutos</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div style="font-size:2.5rem">🗺️</div>
+        <p style="color:var(--teal-dark); font-weight:500; margin-top:0.5rem">Infanta Mercedes de San Martín 78</p>
+        <p style="color:var(--teal-mid); font-size:0.85rem">Mendoza, Argentina</p>
+        <a href="https://maps.google.com/?q=Infanta+Mercedes+de+San+Martin+78,Mendoza" target="_blank" style="display:inline-block;margin-top:1rem;background:var(--teal-mid);color:white;padding:8px 20px;border-radius:40px;text-decoration:none;font-size:13px;">Ver en Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="turnos" id="turnos">
+  <div class="section-inner">
+    <div class="section-tag">Reservas online</div>
+    <h2 class="section-title" style="text-align:center">Sacá tu turno</h2>
+    <p class="section-desc" style="margin:0 auto;text-align:center">Completá el formulario y recibirás la confirmación por email. Podés cancelar hasta 72hs antes.</p>
+    <div class="turno-form-card">
+      <div style="margin-bottom:1.5rem">
+        <label style="display:block;margin-bottom:0.6rem">Especialidad</label>
+        <div class="especialidades-select" id="espSelect">
+          <div class="esp-option" onclick="selectEsp(this)">RPG — Primera consulta</div>
+          <div class="esp-option" onclick="selectEsp(this)">RPG — Sesión común</div>
+          <div class="esp-option" onclick="selectEsp(this)">Acupuntura</div>
+          <div class="esp-option" onclick="selectEsp(this)">Rehabilitación</div>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Nombre y apellido</label><input type="text" placeholder="Ej: María González"></div>
+        <div class="form-group"><label>WhatsApp</label><input type="tel" placeholder="+54 9 261 000-0000"></div>
+        <div class="form-group"><label>Obra social / Mutual</label><input type="text" placeholder="OSDE, PAMI, Particular..."></div>
+        <div class="form-group"><label>Fecha preferida</label><input type="date"></div>
+        <div class="form-group full"><label>Motivo de consulta</label><textarea placeholder="Describí brevemente tu situación para que Daniel pueda prepararse mejor..."></textarea></div>
+      </div>
+      <button class="form-submit" onclick="enviarTurno()">Solicitar turno →</button>
+      <p class="form-note">⚠️ Confirmá tu turno con 24hs de anticipación · Cancelaciones hasta 72hs antes<br>Te contactaremos para confirmar disponibilidad.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Clínica Kinésica · Lic. Daniel Peralta</strong><br>
+  Infanta Mercedes de San Martín 78, Mendoza · +54 9 261 686-3971<br>
+  <a href="https://www.instagram.com/clinicakinesicamza/" class="footer-ig" target="_blank">@clinicakinesicamza</a><br><br>
+  <span style="font-size:11px; opacity:0.5">© 2025 Clínica Kinésica · Todos los derechos reservados</span>
+</footer>
+
+<script>
+function selectEsp(el) {
+  document.querySelectorAll('.esp-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function enviarTurno() {
+  const btn = document.querySelector('.form-submit');
+  btn.textContent = '✓ Solicitud enviada — te contactaremos pronto';
+  btn.style.background = '#639922';
+  btn.disabled = true;
+}
+</script>
+</body>
+</html>
