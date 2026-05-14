@@ -49,8 +49,8 @@
     background: #EF9F27; color: #412402; border: none;
     padding: 10px 22px; border-radius: 40px; font-size: 14px; font-weight: 600;
     cursor: pointer; transition: background 0.2s, transform 0.15s;
-    }
-    .nav-cta:hover { background: #BA7517; transform: translateY(-1px); }
+  }
+  .nav-cta:hover { background: #BA7517; transform: translateY(-1px); }
 
   /* HERO */
   .hero {
